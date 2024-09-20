@@ -1,0 +1,38 @@
+version: '3'
+services:
+  proxy:
+    build: .
+    ports:
+      - "4000:4000"
+    volumes:
+      - .:/app
+    command: ["node", "proxy.js"]
+    networks:
+      - zeply_network
+
+  client:
+    build:
+      context: .
+      dockerfile: ./client/Dockerfile
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./client:/app
+    command: ["yarn", "start"]
+    networks:
+      - zeply_network
+
+  test:
+    build:
+      context: .
+      dockerfile: ./client/Dockerfile
+    volumes:
+      - ./client:/app
+    command: ["npm", "test", "--", "--coverage"]
+    environment:
+      - NODE_ENV=test
+    networks:
+      - zeply_network
+
+networks:
+  zeply_network:

@@ -10,7 +10,7 @@ const useWebSocket = () => {
 
   useEffect(() => {
     try {
-      socketRef.current = io.connect(SOCKET_ENDPOINT);
+      socketRef.current = io.connect(SOCKET_ENDPOINT as string);
     } catch (error) {
       console.log("Enable To Get Connect To ComSys Server  ....");
     }
@@ -24,11 +24,14 @@ const useWebSocket = () => {
     });
 
     /** Subscribe to a transaction hash */
-    socketRef.current.on(SOCKET_EVENTS.SUBSCRIBED_TRANSACTION, (data: string) => {
-      toast.success(`Subscribed to transaction hash successfully: ${data}.`, {
-        position: toast.POSITION.TOP_RIGHT,
-      });
-    });
+    socketRef.current.on(
+      SOCKET_EVENTS.SUBSCRIBED_TRANSACTION,
+      (data: string) => {
+        toast.success(`Subscribed to transaction hash successfully: ${data}.`, {
+          position: toast.POSITION.TOP_RIGHT,
+        });
+      }
+    );
 
     /** Receive a new transaction */
     socketRef.current.on(SOCKET_EVENTS.NEW_TRANSACTION, (data: any) => {

@@ -1,12 +1,9 @@
 import axios from "axios";
 
-export const API_URL = "https://api.blockchair.com";
-
-export const CURRENCY_API_URL = `https://openexchangerates.org/api/`;
-
-export const API_KEY = "95693f0b80754e31905f16774b71d956";
-
-export const SOCKET_ENDPOINT = "http://localhost:5000/";
+export const API_URL = process.env.REACT_APP_API_URL;
+export const CURRENCY_API_URL = process.env.REACT_APP_CURRENCY_API_URL;
+export const API_KEY = process.env.REACT_APP_API_KEY;
+export const SOCKET_ENDPOINT = process.env.REACT_APP_SOCKET_ENDPOINT;
 
 export const http = axios.create({
   baseURL: API_URL + "/bitcoin/dashboards",
@@ -44,5 +41,5 @@ export const ROUTES = {
   ADDRESS: "/",
   TRANSACTION: "/transaction",
   TOP_ADDRESS: "/top_addresses",
-  TOP_TRANSACTION: "/top_transactions"
-}
+  TOP_TRANSACTION: "/top_transactions",
+};
